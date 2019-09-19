@@ -60,7 +60,7 @@ class Song
     name_and_title = mp3.chomp(".mp3").split(/ [-] /)
     title = name_and_title[1] 
     artist = name_and_title[0]
-    song = self.new
+    song = self.create
     song.name = title
     song.artist_name = artist
     
