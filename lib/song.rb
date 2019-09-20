@@ -1,7 +1,5 @@
-
-
 class Song
-  attr_accessor :name, :artist_name
+  attr_accessor :name, :artist_name 
   @@all = []
  
 
@@ -43,6 +41,31 @@ class Song
     @@all.sort_by(&:name)
     #@@all.sort_by{|song|song.name}
   end
+ 
+  def self.create
+    song = self.new
+    song.save
+    song
+  end
+  
+  def self.new_by_name(song_title)
+    song = self.new
+    song.name = song_title
+    song
+  end
+ 
+  def self.create_by_name(song_title)
+    song = self.new
+    song.name = song_title
+    song.save
+    song
+  end
+  
+ def self.find_by_name(song_name)
+    self.all.find{|s| s.name == song_name}
+  end
+    
+  
 
   def self.new_from_filename(song)
      artist_name,song_name=song.split("-")
@@ -66,4 +89,4 @@ end
  
  
  
- 
+
