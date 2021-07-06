@@ -9,5 +9,59 @@ class Song
   def save
     self.class.all << self
   end
-
+  
+  def self.create
+    song = self.new
+    self.all << song
+    song
+  end
+  
+  def self.new_by_name(name)
+    song = self.new
+    song.name = name
+    song
+  end
+  
+  def self.create_by_name(name)
+    song = self.new
+    song.name = name
+    self.all << song
+    song
+  end
+  
+  def self.find_by_name(name)
+    self.all.find { |song| song.name == name }
+  end
+  
+  def self.find_or_create_by_name(name)
+    if self.find_by_name(name)
+      return self.find_by_name(name)
+    else
+      return self.create_by_name(name)
+    end
+  end
+  
+  def self.alphabetical
+    self.all.sort_by { |song| song.name }
+  end
+  
+  def self.new_from_filename(file)
+    data = file.split(".")
+    song_data = data[0].split("-")
+    artist = song_data[0].strip
+    name = song_data[1].strip
+    song = self.create_by_name(name)
+    song.artist_name = artist
+    song
+  end
+  
+  def self.create_from_filename(file)
+    song = self.new_from_filename(file)
+    self.all << song
+  end
+  
+  def self.destroy_all
+    self.all.clear
+  end
+  
 end
